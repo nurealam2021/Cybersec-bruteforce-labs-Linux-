@@ -3,7 +3,6 @@ Scripts and tools to understand brute force methods in legal, permission-based e
 
 
 Lab Setup – Enabling SSH on Target Machine.
-
 Before running brute force attack simulations, ensure your lab target machine has SSH enabled. Follow these steps:
 1. Install OpenSSH Server
 Make sure the SSH server is installed:
@@ -19,12 +18,12 @@ Verify that the SSH service is running:
 $: sudo systemctl status ssh
 
 You should see a line like:
-● ssh.service - OpenBSD Secure Shell server
+ssh.service - OpenBSD Secure Shell server
      Loaded: loaded (/usr/lib/systemd/system/ssh.service; enabled; preset: disabled)
      Active: active (running) since Thu 2025-05-22 07:55:33 PDT; 7s ago
 
 
-5. (Optional) Stop SSH Service
+4. (Optional) Stop SSH Service
 To stop the SSH server:
 $: sudo systemctl stop ssh
 
